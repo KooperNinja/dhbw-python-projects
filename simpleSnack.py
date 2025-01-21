@@ -124,39 +124,14 @@ def checkProducts():
     title = "Produkt"
     price = "Preis"
     quantity = "Verfügbar"
-    sep = " | "
 
-    firstRow = sep.lstrip() + id
-    leftSep =  sep.lstrip().replace(" ", "-")
-    seperatorRow = leftSep + "-" * (len(firstRow) - len(leftSep)) + sep.replace(" ", "-")
-
-    firstRow += sep + title + " " * (maxTitleLength - len(title))
-    seperatorRow += "-" * (len(firstRow) - len(seperatorRow)) + sep.replace(" ", "-")
-
-
-    firstRow += sep + price + " " * (maxPriceLength - len(price))
-    seperatorRow += "-" * (len(firstRow) - len(seperatorRow)) + sep.replace(" ", "-")
-
-    firstRow += sep + quantity
-    seperatorRow += "-" * (len(firstRow) - len(seperatorRow))
-
-    firstRow += sep.rstrip()
-    seperatorRow +=sep.rstrip().replace(" ", "-")
-
+    firstRow = f"| {id:<12} | {title:<{maxTitleLength}} | {price:<{maxPriceLength}} | {quantity:<{len(quantity)}} |"
+    seperatorRow = f"|{"":-<{12 + 2}}|{"":-<{maxTitleLength + 2}}|{"":-<{maxPriceLength + 2}}|{"":-<{len(quantity) + 2}}|"
     print(firstRow)
     print(seperatorRow)
     productId = 0
     for productName, productInfo in snacks.items():
-        productRow = sep.lstrip() + str(productId) + " " * (len(id) - len(str(productId)))
-        productRow += sep + productName + " " * (maxTitleLength - len(productName)) 
-
-        productPrice = asCurrency(productInfo["price"])
-        productRow += sep + productPrice + " " * (maxPriceLength - len(productPrice))
-
-        productQuantity = str(productInfo["quantity"])
-        productRow += sep + productQuantity + " " * (len(quantity) - len(productQuantity))
-
-        productRow += sep
+        productRow = f"| {productId:<12} | {productName:<{maxTitleLength}} | {productInfo["price"]:<{maxPriceLength}} | {productInfo["quantity"]:<{len(quantity)}} |"
         print(productRow)
         productId += 1
 
